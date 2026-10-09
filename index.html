@@ -2850,13 +2850,13 @@
                         const start = performance.now();
 
                         function update(now) {
-                            const elapsed = now - start;
-                            const progress = Math.min(elapsed / duration, 1);
-                            const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-                            current = ease * target;
-                            numEl.textContent = current.toFixed(decimals) + (decimals === 0 ? '+' : '');
-                            if (progress < 1) requestAnimationFrame(update);
-                        }
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+    current = ease * target;
+    numEl.textContent = current.toFixed(decimals);
+    if (progress < 1) requestAnimationFrame(update);
+}
                         requestAnimationFrame(update);
                     }
                 }
