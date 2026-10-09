@@ -2848,13 +2848,12 @@
                         let current = 0;
                         const duration = 2000;
                         const start = performance.now();
-
-                        function update(now) {
+function update(now) {
     const elapsed = now - start;
     const progress = Math.min(elapsed / duration, 1);
     const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
     current = ease * target;
-    numEl.textContent = current.toFixed(decimals);
+    numEl.textContent = current.toFixed(decimals) + (decimals === 0 && target !== 2 ? '+' : '');
     if (progress < 1) requestAnimationFrame(update);
 }
                         requestAnimationFrame(update);
