@@ -2042,6 +2042,20 @@
 #contact .sec-head{margin-bottom:34px}
 .site-foot{margin-top:70px;padding-top:22px;border-top:1px solid rgba(255,255,255,.07);text-align:center;color:var(--dim);font-size:.82rem}
 
+/* ===== PATCH v4: reliable 2D flip (no 3D / back-face issues) + uncropped project images ===== */
+.flip{perspective:none}
+.flip .flip-inner,.flip:hover .flip-inner,.flip.flipped .flip-inner{transform:none!important;transform-style:flat}
+.flip .flip-face{visibility:visible!important;-webkit-backface-visibility:visible;backface-visibility:visible;transform-origin:center}
+.flip .flip-face:not(.flip-back){transition:transform .32s ease-out .32s}
+.flip .flip-back{transform:scaleX(0)!important;transition:transform .32s ease-in 0s}
+.flip.flipped .flip-face:not(.flip-back){transform:scaleX(0)!important;transition:transform .32s ease-in 0s}
+.flip.flipped .flip-back{transform:scaleX(1)!important;transition:transform .32s ease-out .32s}
+@media(hover:hover){
+  .flip:hover .flip-face:not(.flip-back){transform:scaleX(0)!important;transition:transform .32s ease-in 0s}
+  .flip:hover .flip-back{transform:scaleX(1)!important;transition:transform .32s ease-out .32s}
+}
+.proj-img{object-fit:contain!important;height:170px;padding:6px;background:rgba(255,255,255,.05)}
+.pm-box img{object-fit:contain!important;height:auto;max-height:280px;padding:6px}
 @media(max-width:760px){.sk2-grid{grid-template-columns:1fr}.sk2{padding:28px 22px}#contact{padding:60px 22px 24px}}
 </style>
 </head>
