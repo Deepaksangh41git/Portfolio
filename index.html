@@ -1995,11 +1995,14 @@
 /* ===== PATCH: flip cards ===== */
 .flip{perspective:1400px;display:grid;cursor:pointer;outline:none}
 .flip-inner{display:grid;position:relative;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
-.flip-face{grid-area:1/1;transition:none;backface-visibility:hidden;-webkit-backface-visibility:hidden;position:relative}
+.flip-face{grid-area:1/1;transition:visibility 0s linear .4s;backface-visibility:hidden;-webkit-backface-visibility:hidden;position:relative}
 .flip .flip-back{transform:rotateY(180deg)!important;-webkit-backface-visibility:hidden;backface-visibility:hidden;text-align:left;display:flex;flex-direction:column;justify-content:center;
   background:linear-gradient(160deg,rgba(255,88,0,.14),rgba(14,14,24,.95) 60%)!important;border:1px solid rgba(255,213,0,.22)!important}
-@media(hover:hover){.flip:hover .flip-inner{transform:rotateY(180deg)}}
+@media(hover:hover){.flip:hover .flip-inner{transform:rotateY(180deg)}
+.flip:hover .flip-face:not(.flip-back){visibility:hidden}.flip:hover .flip-back{visibility:visible}}
+.flip .flip-back{visibility:hidden}
 .flip.flipped .flip-inner{transform:rotateY(180deg)}
+.flip.flipped .flip-face:not(.flip-back){visibility:hidden}.flip.flipped .flip-back{visibility:visible}
 .flip-hint{position:absolute;right:16px;bottom:12px;font:600 .68rem 'JetBrains Mono',monospace;color:var(--dim);opacity:.7}
 .back-title{font-size:1.15rem;font-weight:700;color:var(--yellow);margin-bottom:4px}
 .back-sub{font-size:.85rem;color:var(--dim);margin-bottom:16px}
@@ -2013,7 +2016,6 @@
 .edu-flip .flip-back{align-items:flex-start;text-align:left}
 .cert-flip .cert-card:not(.flip-back){transform:none!important;min-height:250px;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .cert-flip .flip-back{align-items:flex-start}
-.cert-flip:hover,.edu-flip:hover{filter:drop-shadow(0 12px 26px rgba(255,88,0,.18))}
 
 /* ===== PATCH: tech stack ===== */
 .sk2-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;max-width:1000px;margin:0 auto}
