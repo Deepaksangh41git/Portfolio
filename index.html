@@ -1300,7 +1300,8 @@
             line-height: 1;
         }
 
-        .pm-box img {
+        .pm-box img,
+        .pm-box video {
             display: block;
             width: 100%;
             height: 220px;
@@ -2055,7 +2056,7 @@
   .flip:hover .flip-back{transform:scaleX(1)!important;transition:transform .32s ease-out .32s}
 }
 .proj-img{object-fit:contain!important;height:170px;padding:6px;background:rgba(255,255,255,.05)}
-.pm-box img{object-fit:contain!important;height:auto;max-height:280px;padding:6px}
+.pm-box img,.pm-box video{object-fit:contain!important;height:auto;max-height:280px;padding:6px}
 @media(max-width:760px){.sk2-grid{grid-template-columns:1fr}.sk2{padding:28px 22px}#contact{padding:60px 22px 24px}}
 
 /* ===== RESUME DOWNLOAD (golden) ===== */
@@ -2311,7 +2312,7 @@
                     <div class="proj-num">PROJECT / 01</div>
                     <div class="proj-timeline">📅 Jun 2025 – Aug 2025</div>
                 </div>
-                <img class="proj-img" src="Projects/1.jpeg" alt="Hotel Reservation Prediction" loading="lazy">
+                <video class="proj-img" src="Projects/Videos/1.mp4" poster="Projects/1.jpeg" muted loop playsinline preload="metadata" aria-label="Hotel Reservation Prediction"></video>
                 <div class="proj-title">Hotel Reservation Prediction</div>
                 <div class="proj-short">End-to-end ML + MLOps pipeline predicting hotel booking cancellations, from GCS ingestion to Jenkins CI/CD deployment on GCP.</div>
                 <div class="proj-tags"><span class="ptag" style="color:var(--red);border-color:var(--red)">MLflow</span><span class="ptag" style="color:var(--yellow);border-color:var(--yellow)">Docker / GCP</span><span class="ptag" style="color:var(--blue);border-color:var(--blue)">Jenkins</span></div>
@@ -2325,7 +2326,7 @@
                     <div class="proj-num">PROJECT / 02</div>
                     <div class="proj-timeline">📅 May 2025 – Jun 2025</div>
                 </div>
-                <img class="proj-img" src="Projects/2.jpg" alt="Virtual Data Analyst Agent" loading="lazy">
+                <video class="proj-img" src="Projects/Videos/2.mp4" poster="Projects/2.jpg" muted loop playsinline preload="metadata" aria-label="Virtual Data Analyst Agent"></video>
                 <div class="proj-title">Virtual Data Analyst Agent</div>
                 <div class="proj-short">AI-powered API that uses LLMs to automatically source, prepare, analyze and visualize data, with a self-correcting code loop.</div>
                 <div class="proj-tags"><span class="ptag" style="color:var(--blue);border-color:var(--blue)">LLM Agent</span><span class="ptag" style="color:var(--green);border-color:var(--green)">API</span></div>
@@ -2339,7 +2340,7 @@
                     <div class="proj-num">PROJECT / 03</div>
                     <div class="proj-timeline">📅 Jan 2026 – Feb 2026</div>
                 </div>
-                <img class="proj-img" src="Projects/3.png" alt="Legal Document Classification — Kaggle" loading="lazy">
+                <video class="proj-img" src="Projects/Videos/3.mp4" poster="Projects/3.png" muted loop playsinline preload="metadata" aria-label="Legal Document Classification — Kaggle"></video>
                 <div class="proj-title">Legal Document Classification — Kaggle</div>
                 <div class="proj-short">Classified legal documents into 30 classes by fine-tuning a transformer with LoRA, training only ~0.8% of the parameters.</div>
                 <div class="proj-tags"><span class="ptag" style="color:var(--yellow);border-color:var(--yellow)">LoRA / PEFT</span><span class="ptag" style="color:var(--green);border-color:var(--green)">Transformers</span></div>
@@ -2355,7 +2356,7 @@
                     <div class="proj-num">PROJECT / 04</div>
                     <div class="proj-timeline">📅 Mar 2025 – Apr 2025</div>
                 </div>
-                <img class="proj-img" src="Projects/4.jpeg" alt="Virtual Teaching Assistant" loading="lazy">
+                <video class="proj-img" src="Projects/Videos/4.mp4" poster="Projects/4.jpeg" muted loop playsinline preload="metadata" aria-label="Virtual Teaching Assistant"></video>
                 <div class="proj-title">Virtual Teaching Assistant</div>
                 <div class="proj-short">RAG-powered API that answers student queries from course and forum content, with reference links, in under 30 seconds.</div>
                 <div class="proj-tags"><span class="ptag" style="color:var(--green);border-color:var(--green)">RAG</span><span class="ptag" style="color:var(--blue);border-color:var(--blue)">Embeddings</span></div>
@@ -2369,7 +2370,7 @@
                     <div class="proj-num">PROJECT / 05</div>
                     <div class="proj-timeline">📅 Feb 2026 – Mar 2026</div>
                 </div>
-                <img class="proj-img" src="Projects/5.png" alt="Engage2Value — Kaggle Competition" loading="lazy">
+                <video class="proj-img" src="Projects/Videos/5.mp4" poster="Projects/5.png" muted loop playsinline preload="metadata" aria-label="Engage2Value — Kaggle Competition"></video>
                 <div class="proj-title">Engage2Value — Kaggle Competition</div>
                 <div class="proj-short">Predicted customer purchase value from multi-session behavior. R² 0.6813, rank 152 of 1500 teams (top 10%).</div>
                 <div class="proj-tags"><span class="ptag" style="color:var(--green);border-color:var(--green)">XGBoost</span><span class="ptag" style="color:var(--blue);border-color:var(--blue)">Feature Engineering</span></div>
@@ -2383,7 +2384,7 @@
                     <div class="proj-num">PROJECT / 06</div>
                     <div class="proj-timeline">📅 Sep 2025 – Nov 2025</div>
                 </div>
-                <img class="proj-img" src="Projects/6.jpeg" alt="Household Services Management" loading="lazy">
+                <video class="proj-img" src="Projects/Videos/6.mp4" poster="Projects/6.jpeg" muted loop playsinline preload="metadata" aria-label="Household Services Management"></video>
                 <div class="proj-title">Household Services Management</div>
                 <div class="proj-short">Full-stack platform connecting households with service providers for booking, scheduling and management.</div>
                 <div class="proj-tags"><span class="ptag" style="color:var(--red);border-color:var(--red)">Flask + Vue</span><span class="ptag" style="color:var(--yellow);border-color:var(--yellow)">Redis / Celery</span></div>
@@ -2899,6 +2900,16 @@ function update(now) {
 
     <script>
         // Project details modal (separate script + event delegation so it works even if other scripts fail)
+        function closeProjectModal() {
+            var ov = document.getElementById('pmOverlay');
+            var box = document.getElementById('pmContent');
+            if (!ov) return;
+            if (box) box.innerHTML = '';   // removes the video so it stops playing
+            ov.classList.remove('open');
+            ov.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
         document.addEventListener('click', function (e) {
             var ov = document.getElementById('pmOverlay');
             var box = document.getElementById('pmContent');
@@ -2910,32 +2921,20 @@ function update(now) {
                 if (!t) return;
                 box.innerHTML = '';
                 box.appendChild(t.content.cloneNode(true));
-                // Re-create the image from the card's already-loaded image so it always shows
-                var cardImg = btn.closest('.proj') ? btn.closest('.proj').querySelector('.proj-img') : null;
-                var oldImg = box.querySelector('img');
-                if (cardImg && cardImg.src) {
-                    var im = new Image();
-                    im.alt = cardImg.alt;
-                    im.onerror = function () { im.style.display = 'none'; };
-                    im.src = cardImg.src;
-                    if (oldImg) { oldImg.replaceWith(im); } else { box.insertBefore(im, box.firstChild); }
-                }
+                // The template's own <video> is used directly (no image re-creation needed)
+                var mv = box.querySelector('video');
+                if (mv) { mv.muted = true; var pp = mv.play(); if (pp && pp.catch) pp.catch(function () {}); }
                 ov.classList.add('open');
                 ov.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
                 return;
             }
             if (e.target === ov || (e.target.closest && e.target.closest('#pmClose'))) {
-                ov.classList.remove('open');
-                ov.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = '';
+                closeProjectModal();
             }
         });
         document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                var ov = document.getElementById('pmOverlay');
-                if (ov) { ov.classList.remove('open'); ov.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
-            }
+            if (e.key === 'Escape') closeProjectModal();
         });
     </script>
 
@@ -2947,37 +2946,37 @@ function update(now) {
         </div>
     </div>
     <template id="pm1">
-        <img src="Project/1.jpeg" alt="Hotel Reservation Prediction">
+        <video src="Projects/Videos/1.mp4" poster="Projects/1.jpeg" controls autoplay muted loop playsinline></video>
         <h3>Hotel Reservation Prediction</h3><div class="pm-time">📅 Jun 2025 – Aug 2025</div>
         <div class="pm-body"><p>Developed an end-to-end ML + MLOps pipeline to predict hotel booking cancellations using Scikit-learn and LightGBM. Built the complete workflow from data ingestion and preprocessing to model training, experiment tracking, containerized deployment, and CI/CD.</p><ul><li>Ingested and processed data from Google Cloud Storage, including encoding, feature selection, and SMOTE for class imbalance.</li><li>Performed hyperparameter tuning and tracked experiments, parameters, metrics, and models using MLflow.</li><li>Developed a Flask REST API for model inference and containerized the application using Docker.</li><li>Implemented Jenkins CI/CD to automate testing, Docker image builds, registry pushes, and deployment to GCP.</li><li>Added structured logging and custom exception handling for improved reliability and debugging.</li></ul></div>
         <div class="pm-actions"><a class="proj-btn primary" href="https://github.com/Deepaksangh41git/Hotel_Reservation_Prediction" target="_blank" rel="noopener">View on GitHub &rarr;</a></div>
     </template>
     <template id="pm2">
-        <img src="Project/2.jpg" alt="Virtual Data Analyst Agent">
+        <video src="Projects/Videos/2.mp4" poster="Projects/2.jpg" controls autoplay muted loop playsinline></video>
         <h3>Virtual Data Analyst Agent</h3><div class="pm-time">📅 May 2025 – Jun 2025</div>
         <div class="pm-body"><p>Data Analyst Agent – an API that leverages Large Language Models (LLMs) to automatically source, prepare, analyze, and visualize data.</p><h4>How it works</h4><ul><li>Accepts a POST request with a questions.txt file (always required) and optional files (.csv, .png, .pdf, etc.).</li><li>The agent reads the question, plans the workflow, and generates code dynamically.</li><li>Code is executed automatically and results are validated.</li><li>If errors or mismatches occur, the system loops back to the LLM, refines the code, and retries until the desired output is achieved.</li><li>Ensures results are delivered within 3 minutes in the requested format.</li></ul></div>
         <div class="pm-actions"><a class="proj-btn primary" href="https://github.com/Deepaksangh41git/Virtual_Data_Analyst_V2" target="_blank" rel="noopener">View on GitHub &rarr;</a></div>
     </template>
     <template id="pm3">
-        <img src="Project/3.png" alt="Legal Document Classification — Kaggle">
+        <video src="Projects/Videos/3.mp4" poster="Projects/3.png" controls autoplay muted loop playsinline></video>
         <h3>Legal Document Classification — Kaggle</h3><div class="pm-time">📅 Jan 2026 – Feb 2026</div>
         <div class="pm-body"><p>Kaggle Competition – Legal Document Classification: LoRA fine-tuning of Legal-BERT. Built an end-to-end NLP classification pipeline for classifying legal documents across 30 classes using a transformer-based architecture.</p><h4>Key Highlights</h4><ul><li>Performed comprehensive EDA and text-length analysis to understand class distribution, document lengths, and truncation impact.</li><li>Analyzed token distributions and evaluated the effect of 512-token truncation across different classes.</li><li>Fine-tuned a DeBERTa-based transformer model using LoRA (Low-Rank Adaptation) for parameter-efficient training.</li><li>Reduced the number of trainable parameters to approximately 0.8% of the full model.</li><li>Implemented Hugging Face Datasets, Transformers, PEFT, and PyTorch for the complete training pipeline.</li><li>Used stratified train-validation splitting and accuracy-based evaluation.</li><li>Added training sanity checks, GPU validation, manual forward-pass testing, and prediction-order diagnostics.</li></ul></div>
         
     </template>
     <template id="pm4">
-        <img src="Project/4.jpeg" alt="Virtual Teaching Assistant">
+        <video src="Projects/Videos/4.mp4" poster="Projects/4.jpeg" controls autoplay muted loop playsinline></video>
         <h3>Virtual Teaching Assistant</h3><div class="pm-time">📅 Mar 2025 – Apr 2025</div>
         <div class="pm-body"><p>Built a Virtual Teaching Assistant API that can automatically answer student queries.</p><h4>The system</h4><ul><li>Scrapes and processes relevant course and discussion forum content.</li><li>Converts text into embeddings, finds the most relevant ones, and passes them to the LLM.</li><li>Uses RAG (Retrieval-Augmented Generation) to generate accurate, context-aware answers.</li><li>The API accepts questions (with optional file attachments) and returns JSON responses with answers and reference links, all within 30 seconds.</li></ul><p><b>Tech Stack:</b> Python, BeautifulSoup, Embeddings, RAG, LLMs, APIs</p></div>
         <div class="pm-actions"><a class="proj-btn primary" href="https://github.com/Deepaksangh41git/Virtual-Teaching-Assistant" target="_blank" rel="noopener">View on GitHub &rarr;</a></div>
     </template>
     <template id="pm5">
-        <img src="Project/5.png" alt="Engage2Value — Kaggle Competition">
+        <video src="Projects/Videos/5.mp4" poster="Projects/5.png" controls autoplay muted loop playsinline></video>
         <h3>Engage2Value — Kaggle Competition</h3><div class="pm-time">📅 Feb 2026 – Mar 2026</div>
         <div class="pm-body"><p>Objective: Predict customer purchase value from multi-session digital behavior (browser, device, traffic source, and geography). The task focused on modeling these patterns to estimate purchase potential.</p><h4>What I did</h4><ul><li>Built end-to-end data preprocessing pipelines for handling missing values, categorical encoding, and feature scaling.</li><li>Explored and compared different regression models including Linear Regression, RandomForest, and XGBoost.</li><li>Achieved significant performance improvement by tuning hyperparameters and leveraging ensemble methods.</li><li>Evaluated models using R², MAE, MSE, and cross-validation to ensure robust performance.</li><li>Iterated with feature engineering and transformation techniques (polynomial features, interaction terms) to capture non-linear relationships.</li><li>Learned practical trade-offs between interpretability and accuracy when comparing simpler vs. complex models.</li></ul><h4>Results</h4><ul><li>Achieved an R² score of 0.6813 on the leaderboard.</li><li>Ranked in the top 10% / position 152 out of 1500 teams in the competition.</li></ul><p><b>Key Takeaway:</b> Strengthened my skills in machine learning pipelines, model selection, and Kaggle-style experimentation, while working on a real-world regression problem.</p></div>
         
     </template>
     <template id="pm6">
-        <img src="Project/6.jpeg" alt="Household Services Management">
+        <video src="Projects/Videos/6.mp4" poster="Projects/6.jpeg" controls autoplay muted loop playsinline></video>
         <h3>Household Services Management</h3><div class="pm-time">📅 Sep 2025 – Nov 2025</div>
         <div class="pm-body"><p>Built a full-stack web application to connect households with service providers (plumbers, electricians, cleaners, etc.), streamlining service requests, scheduling, and management. The goal was a digital platform where users can easily book household services, while service providers manage requests and schedules efficiently.</p><h4>Key Features</h4><ul><li>User registration &amp; authentication.</li><li>Browse and request services (plumbing, cleaning, repairs, etc.).</li><li>Service scheduling &amp; status tracking.</li><li>Notifications &amp; updates via Redis + Celery batch jobs.</li><li>Admin dashboard for managing users and services.</li></ul><h4>Tech Stack</h4><ul><li>Backend: Flask (REST API) + SQLite</li><li>Frontend: VueJS with Bootstrap</li><li>Caching & Jobs: Redis + Celery</li></ul></div>
         <div class="pm-actions"><a class="proj-btn primary" href="https://github.com/Deepaksangh41git/Household_Services_Management" target="_blank" rel="noopener">View on GitHub &rarr;</a></div>
@@ -3001,6 +3000,26 @@ function update(now) {
     document.querySelectorAll('.flip').forEach(function(f){f.addEventListener('click',function(){f.classList.toggle('flipped');});});
   }
   document.querySelectorAll('.flip').forEach(function(f){f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();f.classList.toggle('flipped');}});});
+})();
+
+/* project card videos: play on hover (desktop), play when visible (touch) */
+(function(){
+  var vids = document.querySelectorAll('.proj video');
+  vids.forEach(function (v) {
+    var card = v.closest('.proj');
+    if (!card) return;
+    card.addEventListener('mouseenter', function () { var p = v.play(); if (p && p.catch) p.catch(function(){}); });
+    card.addEventListener('mouseleave', function () { v.pause(); v.currentTime = 0; });
+  });
+  if (window.matchMedia('(hover:none)').matches && 'IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { var p = en.target.play(); if (p && p.catch) p.catch(function(){}); }
+        else en.target.pause();
+      });
+    }, { threshold: 0.5 });
+    vids.forEach(function (v) { vio.observe(v); });
+  }
 })();
 </script>
 </body>
