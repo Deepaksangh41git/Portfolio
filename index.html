@@ -2012,6 +2012,7 @@
 .back-list li::before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:2px;background:linear-gradient(135deg,var(--red),var(--yellow))}
 .back-list.small li{font-size:.84rem}
 .exp-flip{max-width:820px;margin:0 auto}
+.exp-list li strong{color:#e6e6f4;font-weight:600}
 .exp-flip .exp-card:not(.flip-back){transform:none!important;margin:0;max-width:none;padding-bottom:44px}
 .edu-flip .edu-card:not(.flip-back){transform:none!important;min-height:250px;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .edu-flip .flip-back{align-items:flex-start;text-align:left}
@@ -2233,33 +2234,38 @@
         <div class="flip exp-flip up" tabindex="0">
             <div class="flip-inner">
                 <div class="flip-face exp-card">
-                    <span class="flip-hint">Hover / tap to flip ↻</span>
+                    <span class="flip-hint">Flip for summary + case study ↻</span>
                     
             <div class="exp-top">
                 <div class="exp-icon">🛡️</div>
                 <div class="exp-heading">
                     <div class="exp-role">AI Engineer Intern</div>
-                    <div class="exp-company">CyCrew</div>
+                    <div class="exp-company">CyCrew &middot; AI-assisted SIEM incident response</div>
                 </div>
                 <div class="exp-dates">Oct 2025 &ndash; Jan 2026</div>
             </div>
             <ul class="exp-list">
-                <li>Built an AI-powered SIEM incident analysis platform using LLMs and Retrieval-Augmented Generation (RAG), enabling automated alert investigation and structured, LLM-generated incident response reports for Security Operations Center (SOC) teams.</li>
-                <li>Designed a full-stack AI pipeline (FAISS vector search, FastAPI backend, n8n workflow orchestration, Vue.js frontend) that reduced manual triage effort and accelerated SOC decision-making.</li>
-                <li>Engineered retrieval and prompting strategies to ground LLM outputs in security alert context, improving the accuracy and consistency of automated incident analysis.</li>
+                <li><strong>Problem:</strong> SOC analysts triage SIEM alerts by hand, and an LLM on its own can invent remediation steps. I built a prototype that turns a raw alert or log dump into a structured incident report with response steps.</li>
+                <li><strong>My work:</strong> the RAG service (FAISS + BGE-small-en over 11 attack playbooks), two n8n workflows using Gemini 2.5 Flash-Lite with structured JSON output, a FastAPI result store, and the Vue.js dashboard.</li>
+                <li><strong>Key decision:</strong> two input paths. Classified alerts are grounded in a retrieved playbook and the prompt forbids invented steps; unclassified logs go to the model with a prompt that must cite evidence and not assume an attack.</li>
+                <li><strong>Status:</strong> working prototype exercised on sample alerts and logs; not yet benchmarked. Known gap: retrieval has no similarity threshold, so an unknown alert type can still receive the nearest playbook.</li>
             </ul>
             <div class="exp-tags">
                 <span class="ptag" style="color:var(--red);border-color:var(--red)">RAG / LLMs</span>
                 <span class="ptag" style="color:var(--blue);border-color:var(--blue)">FAISS</span>
                 <span class="ptag" style="color:var(--yellow);border-color:var(--yellow)">FastAPI</span>
                 <span class="ptag" style="color:var(--green);border-color:var(--green)">n8n</span>
+                <span class="ptag" style="color:var(--blue);border-color:var(--blue)">Vue.js</span>
             </div>
         
                 </div>
                 <div class="flip-face flip-back exp-card">
                     <div class="back-title">⚡ Quick Summary</div>
                     <div class="back-sub">AI Engineer Intern · CyCrew</div>
-                    <ul class="back-list"><li>Automated SOC alert triage with an LLM + RAG pipeline</li><li>Owned the stack end to end: FAISS, FastAPI, n8n, Vue.js</li><li>Cut manual investigation effort and sped up incident decisions</li><li>Grounded LLM answers in alert context for consistent reports</li></ul>
+                    <ul class="back-list" style="gap:13px"><li><b>What:</b> SOC assistant prototype. A SIEM alert or raw logs go in, a structured incident report comes out</li><li><b>Users:</b> SOC analysts doing first-pass triage; it supports their review and never acts on systems itself</li><li><b>Known alerts:</b> matched to one of 11 attack playbooks (phishing to data exfiltration) and grounded in its mitigation and recovery steps</li><li><b>Unknown logs:</b> analysed by the LLM from evidence only, citing IPs, users and timestamps, with "no attack" allowed</li><li><b>Output:</b> attack detected, type, confidence and mitigation steps, shown as cards in a live incident feed</li><li><b>Stack:</b> Vue &middot; n8n &middot; FastAPI &middot; FAISS &middot; Gemini 2.5 Flash-Lite</li><li><b>Status:</b> prototype, not yet benchmarked. Next: similarity threshold, labelled test set, persistent storage</li></ul>
+                    <div style="margin-top:20px">
+                        <a class="proj-btn primary" style="display:inline-block;flex:none;padding:10px 20px" href="Documents/CyCrew_Case_Study.pdf" target="_blank" rel="noopener" onclick="event.stopPropagation()">Read case study &rarr;</a>
+                    </div>
                     <span class="flip-hint">Flip back ↻</span>
                 </div>
             </div>
