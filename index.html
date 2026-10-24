@@ -2070,6 +2070,40 @@
 .exp-flip{width:100%}
 .exp-flip .flip-inner{width:100%}
 .exp-flip .flip-face,.exp-flip .exp-card,.exp-flip .exp-card.flip-back{width:100%!important;max-width:none!important;margin:0!important;box-sizing:border-box}
+
+/* ===== Writing & Research (case-study style) ===== */
+#writing{background:var(--bg2)}
+.wr-list{display:flex;flex-direction:column;gap:44px;max-width:1100px;margin:0 auto}
+.wr-case{display:grid;grid-template-columns:5fr 7fr;gap:28px;align-items:stretch}
+.wr-cover{position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 14px 40px rgba(0,0,0,.4);min-height:320px;background:rgba(255,255,255,.04)}
+.wr-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.wr-case:hover .wr-cover img{transform:scale(1.04)}
+.wr-face{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-top:3px solid var(--pc,var(--yellow));border-radius:20px;padding:30px 32px 40px;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.3);display:flex;flex-direction:column;justify-content:center}
+.wr-chip{align-self:flex-start;font:700 .72rem 'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;color:var(--pc,var(--yellow));border:1px solid var(--pc,var(--yellow));padding:4px 12px;border-radius:100px;margin-bottom:14px}
+.wr-meta{font:600 .74rem 'JetBrains Mono',monospace;color:var(--dim);margin-bottom:10px}
+.wr-title{font-size:1.5rem;font-weight:700;line-height:1.25;margin-bottom:8px}
+.wr-sub{font-size:.95rem;font-weight:600;color:var(--yellow);margin-bottom:12px}
+.wr-desc{color:#d2d2e6;font-size:.93rem;line-height:1.7;margin-bottom:14px}
+.wr-author{font-size:.82rem;color:var(--dim);margin-bottom:18px}
+.wr-actions{display:flex;gap:10px;flex-wrap:wrap}
+.wr-actions .proj-btn{flex:0 1 auto;padding:10px 18px}
+.wr-back{justify-content:flex-start!important;padding:26px 28px 30px}
+.wr-back-title{font-size:1.1rem;font-weight:700;color:var(--yellow);margin-bottom:4px}
+.wr-back-sub{font-size:.8rem;color:var(--dim);margin-bottom:12px}
+.wr-scroll{overflow-y:auto;max-height:290px;padding-right:10px;color:#e2e2f0;font-size:.9rem;line-height:1.7;scrollbar-width:thin;scrollbar-color:var(--yellow) transparent}
+.wr-scroll::-webkit-scrollbar{width:6px}
+.wr-scroll::-webkit-scrollbar-thumb{background:var(--yellow);border-radius:6px}
+.wr-scroll h4{color:var(--yellow);font-size:.95rem;margin:14px 0 6px}
+.wr-scroll h4:first-child{margin-top:0}
+.wr-scroll p{margin-bottom:8px}
+.wr-scroll ul{padding-left:18px;margin-bottom:8px}
+.wr-scroll li{margin-bottom:4px}
+.wr-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px}
+.wr-foot span{font:600 .72rem 'JetBrains Mono',monospace;color:var(--dim)}
+.wr-foot .proj-btn{flex:0 0 auto;padding:9px 18px}
+.w1{--pc:var(--green)}
+.w2{--pc:var(--red)}
+@media(max-width:900px){.wr-case{grid-template-columns:1fr}.wr-cover{min-height:0;height:220px}}
 </style>
 </head>
 
@@ -2096,6 +2130,7 @@
             <li><a href="#experience">Experience</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#projects">Projects</a></li>
+            <li><a href="#writing">Writing</a></li>
             <li><a href="#education">Education</a></li>
             <li><a href="#certifications">Certifications</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -2398,6 +2433,67 @@
                     <button type="button" class="proj-btn primary" data-pm="pm6">Read details</button>
                     <a class="proj-btn ghost" href="https://github.com/Deepaksangh41git/Household_Services_Management" target="_blank" rel="noopener">GitHub &rarr;</a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="pips" style="background:var(--bg2)">
+        <div class="pip"></div>
+        <div class="pip"></div>
+        <div class="pip"></div>
+    </div>
+
+    <!-- ════════ WRITING & RESEARCH ════════ -->
+    <section id="writing">
+        <div class="sec-head up">
+            <p class="sec-sub">Detailed deep-dives into ML and AI systems.</p>
+        </div>
+        <div class="wr-list">
+            <div class="wr-case up w1">
+                <div class="wr-cover"><img src="Writing%20and%20Research/1.jpg" alt="Why RAG Systems Fail Even When Retrieval Works cover" loading="lazy"></div>
+                <div class="flip wr-flip" tabindex="0"><div class="flip-inner">
+                    <div class="flip-face wr-face"><span class="flip-hint">Tap to flip ↻</span>
+                        <div class="wr-chip">RAG &amp; LLM Systems</div>
+                        <div class="wr-meta">ARTICLE / 01</div>
+                        <div class="wr-title">Why RAG Systems Fail Even When Retrieval Works</div>
+                        <div class="wr-sub">A look at what goes wrong after retrieval</div>
+                        <div class="wr-desc">Retrieving the right documents is only half the job. This article looks at why RAG pipelines still produce wrong or ungrounded answers even when retrieval looks healthy.</div>
+                        <div class="wr-author">Author: Deepak Singh</div>
+                        <div class="wr-actions">
+                            <a class="proj-btn primary" href="Writing%20and%20Research/1.pdf" target="_blank" rel="noopener">View Full Article</a>
+                            <a class="proj-btn ghost" href="https://docs.google.com/document/d/1lI2MbOqiANJFNr29Zkd0lAfdJ1xZlqMdyugxzZeNeww/edit?usp=sharing" target="_blank" rel="noopener">Google Docs &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="flip-face flip-back wr-face wr-back">
+                        <div class="wr-back-title">Why RAG Systems Fail Even When Retrieval Works</div>
+                        <div class="wr-back-sub">Executive summary</div>
+                        <div class="wr-scroll"><h4>The problem</h4><p>RAG systems are usually debugged at the retrieval layer: better embeddings, better chunking, higher recall. But a correct set of retrieved chunks does not guarantee a correct answer.</p><h4>Where it breaks</h4><ul><li>Relevant context is retrieved but buried, truncated or diluted by noisy chunks.</li><li>The model ignores the context and answers from its own prior knowledge.</li><li>Conflicting or outdated chunks confuse the generation step.</li><li>Evaluation only measures retrieval, so generation failures go unnoticed.</li></ul><h4>Takeaway</h4><p>Retrieval quality and answer quality are different problems. Evaluate them separately, and measure whether the final answer is actually grounded in the retrieved context.</p><p>The full article covers the failure modes in detail.</p></div>
+                        <div class="wr-foot"><span>Scroll to read summary</span><a class="proj-btn primary" href="Writing%20and%20Research/1.pdf" download="Why RAG Systems Fail Even When Retrieval Works.pdf">Download PDF</a></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="wr-case up w2">
+                <div class="wr-cover"><img src="Writing%20and%20Research/2.jpg" alt="Detecting Data Leakage in ML cover" loading="lazy"></div>
+                <div class="flip wr-flip" tabindex="0"><div class="flip-inner">
+                    <div class="flip-face wr-face"><span class="flip-hint">Tap to flip ↻</span>
+                        <div class="wr-chip">ML Evaluation</div>
+                        <div class="wr-meta">ARTICLE / 02</div>
+                        <div class="wr-title">Detecting Data Leakage in ML</div>
+                        <div class="wr-sub">Why great validation scores can lie</div>
+                        <div class="wr-desc">Data leakage silently inflates model performance and then collapses in production. This article covers how leakage happens and practical ways to detect it.</div>
+                        <div class="wr-author">Author: Deepak Singh</div>
+                        <div class="wr-actions">
+                            <a class="proj-btn primary" href="Writing%20and%20Research/2.pdf" target="_blank" rel="noopener">View Full Article</a>
+                            <a class="proj-btn ghost" href="https://docs.google.com/document/d/17PhhZNBFY6CxaBHdQyi4rJlM9DmEhw9G4iSLsuzwpJ4/edit?usp=sharing" target="_blank" rel="noopener">Google Docs &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="flip-face flip-back wr-face wr-back">
+                        <div class="wr-back-title">Detecting Data Leakage in ML</div>
+                        <div class="wr-back-sub">Executive summary</div>
+                        <div class="wr-scroll"><h4>The problem</h4><p>A model that scores suspiciously well often has access to information it would never have at prediction time. The metrics look great, and the deployment fails.</p><h4>Common sources</h4><ul><li>Preprocessing (scaling, encoding, imputing) fitted before the train/test split.</li><li>Target leakage through features that encode the label.</li><li>Duplicate or near-duplicate rows across train and test.</li><li>Temporal leakage from random splits on time-dependent data.</li></ul><h4>Takeaway</h4><p>Treat unusually high scores as a warning sign. Split first, fit transformations on training data only, and audit feature importance for features that look too good to be true.</p><p>The full article walks through detection techniques.</p></div>
+                        <div class="wr-foot"><span>Scroll to read summary</span><a class="proj-btn primary" href="Writing%20and%20Research/2.pdf" download="Detecting Data Leakage in ML.pdf">Download PDF</a></div>
+                    </div>
+                </div></div>
             </div>
         </div>
     </section>
@@ -2993,8 +3089,9 @@ function update(now) {
 (function(){
   var H={about:['01','About','Who <span>I Am</span>'],experience:['02','Experience','Where I\'ve <span>Worked</span>'],
     skills:['03','Skills','Technical <span>Stack</span>'],projects:['04','Projects','Featured <span>Projects</span>'],
-    education:['05','Education','Academic <span>Background</span>'],certifications:['06','Certifications','Credentials &amp; <span>Skills Earned</span>'],
-    contact:['07','Contact','Get In <span>Touch</span>']};
+    writing:['05','Writing &amp; Research','Writing &amp; <span>Research</span>'],
+    education:['06','Education','Academic <span>Background</span>'],certifications:['07','Certifications','Credentials &amp; <span>Skills Earned</span>'],
+    contact:['08','Contact','Get In <span>Touch</span>']};
   Object.keys(H).forEach(function(id){
     var s=document.getElementById(id); if(!s) return;
     var h=s.querySelector('.sec-head'); if(!h) return;
@@ -3027,6 +3124,9 @@ function update(now) {
     vids.forEach(function (v) { vio.observe(v); });
   }
 })();
+
+/* writing cards: links and scroll area shouldn't toggle the flip */
+document.querySelectorAll('.wr-flip a,.wr-scroll').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();});});
 </script>
 </body>
 
