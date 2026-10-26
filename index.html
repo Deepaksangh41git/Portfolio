@@ -2041,7 +2041,13 @@
 /* ===== PATCH: last section ===== */
 #contact{--contact-min:55vh;min-height:var(--contact-min);padding:80px 60px 28px;display:flex;flex-direction:column;justify-content:center}
 .contact-inner{display:flex;flex-direction:column;justify-content:center;flex:1;gap:8px}
-#contact .sec-head{margin-bottom:34px}
+#contact .sec-head{margin-bottom:34px;order:-1}
+#contact .contact-links{order:1}
+@media(max-width:560px){
+ #contact .sec-head{margin-bottom:26px}
+ #contact .contact-links{gap:12px;width:100%}
+ #contact .contact-btn{flex:1 1 100%;justify-content:center;padding:13px 20px;max-width:340px;margin:0 auto}
+}
 .site-foot{margin-top:70px;padding-top:22px;border-top:1px solid rgba(255,255,255,.07);text-align:center;color:var(--dim);font-size:.82rem}
 
 /* ===== PATCH v4: reliable 2D flip (no 3D / back-face issues) + uncropped project images ===== */
@@ -2073,24 +2079,28 @@
 
 /* ===== Writing & Research (case-study style) ===== */
 #writing{background:var(--bg2)}
-.wr-list{display:flex;flex-direction:column;gap:44px;max-width:1100px;margin:0 auto}
-.wr-case{display:grid;grid-template-columns:5fr 7fr;gap:28px;align-items:stretch}
-.wr-cover{position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 14px 40px rgba(0,0,0,.4);min-height:320px;background:rgba(255,255,255,.04)}
-.wr-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
-.wr-case:hover .wr-cover img{transform:scale(1.04)}
-.wr-face{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-top:3px solid var(--pc,var(--yellow));border-radius:20px;padding:30px 32px 40px;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.3);display:flex;flex-direction:column;justify-content:center}
-.wr-chip{align-self:flex-start;font:700 .72rem 'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;color:var(--pc,var(--yellow));border:1px solid var(--pc,var(--yellow));padding:4px 12px;border-radius:100px;margin-bottom:14px}
-.wr-meta{font:600 .74rem 'JetBrains Mono',monospace;color:var(--dim);margin-bottom:10px}
-.wr-title{font-size:1.5rem;font-weight:700;line-height:1.25;margin-bottom:8px}
-.wr-sub{font-size:.95rem;font-weight:600;color:var(--yellow);margin-bottom:12px}
-.wr-desc{color:#d2d2e6;font-size:.93rem;line-height:1.7;margin-bottom:14px}
-.wr-author{font-size:.82rem;color:var(--dim);margin-bottom:18px}
+.wr-list{display:flex;flex-direction:column;gap:36px;max-width:1000px;margin:0 auto}
+.wr-flip{width:100%}
+.wr-flip .flip-inner{width:100%}
+.wr-flip .flip-face{width:100%;box-sizing:border-box;min-width:0}
+.wr-front{flex-direction:row!important;align-items:center;justify-content:flex-start!important;gap:36px}
+.wr-cover{flex:0 0 330px;width:330px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 8px 22px rgba(0,0,0,.35);background:rgba(255,255,255,.04)}
+.wr-cover img{display:block;width:100%;height:auto;max-height:320px;object-fit:contain;transition:transform .6s ease}
+.wr-flip:hover .wr-cover img{transform:scale(1.04)}
+.wr-body{flex:1 1 auto;min-width:0;display:flex;flex-direction:column}
+.wr-face{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-top:3px solid var(--pc,var(--yellow));border-radius:20px;padding:36px 40px 46px;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.3);display:flex;flex-direction:column;justify-content:center}
+.wr-chip{align-self:flex-start;font:700 .8rem 'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;color:var(--pc,var(--yellow));border:1px solid var(--pc,var(--yellow));padding:4px 12px;border-radius:100px;margin-bottom:14px}
+.wr-meta{font:600 .82rem 'JetBrains Mono',monospace;color:var(--dim);margin-bottom:10px}
+.wr-title{font-size:2rem;font-weight:700;line-height:1.25;margin-bottom:8px}
+.wr-sub{font-size:1.12rem;font-weight:600;color:var(--yellow);margin-bottom:12px}
+.wr-desc{color:#d2d2e6;font-size:1.04rem;line-height:1.75;margin-bottom:14px}
+.wr-author{font-size:.92rem;color:var(--dim);margin-bottom:18px}
 .wr-actions{display:flex;gap:10px;flex-wrap:wrap}
 .wr-actions .proj-btn{flex:0 1 auto;padding:10px 18px}
-.wr-back{justify-content:flex-start!important;padding:26px 28px 30px}
+.wr-back{justify-content:flex-start!important;padding:32px 40px 34px}
 .wr-back-title{font-size:1.1rem;font-weight:700;color:var(--yellow);margin-bottom:4px}
 .wr-back-sub{font-size:.8rem;color:var(--dim);margin-bottom:12px}
-.wr-scroll{overflow-y:auto;max-height:290px;padding-right:10px;color:#e2e2f0;font-size:.9rem;line-height:1.7;scrollbar-width:thin;scrollbar-color:var(--yellow) transparent}
+.wr-scroll{overflow-y:auto;max-height:240px;padding-right:10px;color:#e2e2f0;font-size:.96rem;line-height:1.7;scrollbar-width:thin;scrollbar-color:var(--yellow) transparent}
 .wr-scroll::-webkit-scrollbar{width:6px}
 .wr-scroll::-webkit-scrollbar-thumb{background:var(--yellow);border-radius:6px}
 .wr-scroll h4{color:var(--yellow);font-size:.95rem;margin:14px 0 6px}
@@ -2103,7 +2113,23 @@
 .wr-foot .proj-btn{flex:0 0 auto;padding:9px 18px}
 .w1{--pc:var(--green)}
 .w2{--pc:var(--red)}
-@media(max-width:900px){.wr-case{grid-template-columns:1fr}.wr-cover{min-height:0;height:220px}}
+@media(max-width:900px){.wr-front{gap:26px}.wr-cover{flex-basis:260px;width:260px}.wr-cover img{max-height:280px}.wr-face{padding:28px 26px 44px}.wr-title{font-size:1.65rem}.wr-sub{font-size:1rem}.wr-desc{font-size:.96rem}}
+@media(max-width:640px){
+ .wr-list{gap:28px}
+ .wr-front{flex-direction:column!important;align-items:stretch;gap:16px}
+ .wr-cover{flex:none;width:100%;max-width:100%;align-self:center}
+ .wr-cover img{max-height:220px}
+ .wr-face{padding:22px 18px 44px}
+ .wr-title{font-size:1.4rem}
+ .wr-sub{font-size:1rem}
+ .wr-desc{font-size:.96rem;line-height:1.65}
+ .wr-actions .proj-btn{flex:1 1 100%;text-align:center}
+ .wr-scroll{max-height:340px;font-size:.86rem}
+ .wr-foot{flex-direction:column;align-items:stretch}
+ .wr-foot .proj-btn{text-align:center}
+ .wr-foot span{text-align:center}
+ .wr-back{padding:22px 18px 40px}
+}
 </style>
 </head>
 
@@ -2449,52 +2475,42 @@
             <p class="sec-sub">Detailed deep-dives into ML and AI systems.</p>
         </div>
         <div class="wr-list">
-            <div class="wr-case up w1">
-                <div class="wr-cover"><img src="Writing%20and%20Research/1.jpg" alt="Why RAG Systems Fail Even When Retrieval Works cover" loading="lazy"></div>
-                <div class="flip wr-flip" tabindex="0"><div class="flip-inner">
-                    <div class="flip-face wr-face"><span class="flip-hint">Tap to flip ↻</span>
+            <div class="flip wr-flip up w1" tabindex="0"><div class="flip-inner">
+                    <div class="flip-face wr-face wr-front"><span class="flip-hint">Tap to flip ↻</span>
+                        <div class="wr-cover"><img src="Writing%20and%20Research/1.jpg" alt="Why RAG Systems Fail Even When Retrieval Works cover" loading="lazy"></div>
+                        <div class="wr-body">
                         <div class="wr-chip">RAG &amp; LLM Systems</div>
                         <div class="wr-meta">ARTICLE / 01</div>
                         <div class="wr-title">Why RAG Systems Fail Even When Retrieval Works</div>
                         <div class="wr-sub">A look at what goes wrong after retrieval</div>
                         <div class="wr-desc">Retrieving the right documents is only half the job. This article looks at why RAG pipelines still produce wrong or ungrounded answers even when retrieval looks healthy.</div>
                         <div class="wr-author">Author: Deepak Singh</div>
-                        <div class="wr-actions">
-                            <a class="proj-btn primary" href="Writing%20and%20Research/1.pdf" target="_blank" rel="noopener">View Full Article</a>
-                            <a class="proj-btn ghost" href="https://docs.google.com/document/d/1lI2MbOqiANJFNr29Zkd0lAfdJ1xZlqMdyugxzZeNeww/edit?usp=sharing" target="_blank" rel="noopener">Google Docs &rarr;</a>
-                        </div>
+                    </div>
                     </div>
                     <div class="flip-face flip-back wr-face wr-back">
                         <div class="wr-back-title">Why RAG Systems Fail Even When Retrieval Works</div>
                         <div class="wr-back-sub">Executive summary</div>
                         <div class="wr-scroll"><h4>The problem</h4><p>RAG systems are usually debugged at the retrieval layer: better embeddings, better chunking, higher recall. But a correct set of retrieved chunks does not guarantee a correct answer.</p><h4>Where it breaks</h4><ul><li>Relevant context is retrieved but buried, truncated or diluted by noisy chunks.</li><li>The model ignores the context and answers from its own prior knowledge.</li><li>Conflicting or outdated chunks confuse the generation step.</li><li>Evaluation only measures retrieval, so generation failures go unnoticed.</li></ul><h4>Takeaway</h4><p>Retrieval quality and answer quality are different problems. Evaluate them separately, and measure whether the final answer is actually grounded in the retrieved context.</p><p>The full article covers the failure modes in detail.</p></div>
-                        <div class="wr-foot"><span>Scroll to read summary</span><a class="proj-btn primary" href="Writing%20and%20Research/1.pdf" download="Why RAG Systems Fail Even When Retrieval Works.pdf">Download PDF</a></div>
-                    </div>
-                </div></div>
-            </div>
-            <div class="wr-case up w2">
-                <div class="wr-cover"><img src="Writing%20and%20Research/2.jpg" alt="Detecting Data Leakage in ML cover" loading="lazy"></div>
-                <div class="flip wr-flip" tabindex="0"><div class="flip-inner">
-                    <div class="flip-face wr-face"><span class="flip-hint">Tap to flip ↻</span>
+                        <div class="wr-foot"><span>Scroll to read summary</span><a class="proj-btn primary" href="Writing%20and%20Research/1.pdf" target="_blank" rel="noopener">View PDF</a></div>
+                    </div></div></div>
+            <div class="flip wr-flip up w2" tabindex="0"><div class="flip-inner">
+                    <div class="flip-face wr-face wr-front"><span class="flip-hint">Tap to flip ↻</span>
+                        <div class="wr-cover"><img src="Writing%20and%20Research/2.jpg" alt="Detecting Data Leakage in ML cover" loading="lazy"></div>
+                        <div class="wr-body">
                         <div class="wr-chip">ML Evaluation</div>
                         <div class="wr-meta">ARTICLE / 02</div>
                         <div class="wr-title">Detecting Data Leakage in ML</div>
                         <div class="wr-sub">Why great validation scores can lie</div>
                         <div class="wr-desc">Data leakage silently inflates model performance and then collapses in production. This article covers how leakage happens and practical ways to detect it.</div>
                         <div class="wr-author">Author: Deepak Singh</div>
-                        <div class="wr-actions">
-                            <a class="proj-btn primary" href="Writing%20and%20Research/2.pdf" target="_blank" rel="noopener">View Full Article</a>
-                            <a class="proj-btn ghost" href="https://docs.google.com/document/d/17PhhZNBFY6CxaBHdQyi4rJlM9DmEhw9G4iSLsuzwpJ4/edit?usp=sharing" target="_blank" rel="noopener">Google Docs &rarr;</a>
-                        </div>
+                    </div>
                     </div>
                     <div class="flip-face flip-back wr-face wr-back">
                         <div class="wr-back-title">Detecting Data Leakage in ML</div>
                         <div class="wr-back-sub">Executive summary</div>
                         <div class="wr-scroll"><h4>The problem</h4><p>A model that scores suspiciously well often has access to information it would never have at prediction time. The metrics look great, and the deployment fails.</p><h4>Common sources</h4><ul><li>Preprocessing (scaling, encoding, imputing) fitted before the train/test split.</li><li>Target leakage through features that encode the label.</li><li>Duplicate or near-duplicate rows across train and test.</li><li>Temporal leakage from random splits on time-dependent data.</li></ul><h4>Takeaway</h4><p>Treat unusually high scores as a warning sign. Split first, fit transformations on training data only, and audit feature importance for features that look too good to be true.</p><p>The full article walks through detection techniques.</p></div>
-                        <div class="wr-foot"><span>Scroll to read summary</span><a class="proj-btn primary" href="Writing%20and%20Research/2.pdf" download="Detecting Data Leakage in ML.pdf">Download PDF</a></div>
-                    </div>
-                </div></div>
-            </div>
+                        <div class="wr-foot"><span>Scroll to read summary</span><a class="proj-btn primary" href="Writing%20and%20Research/2.pdf" target="_blank" rel="noopener">View PDF</a></div>
+                    </div></div></div>
         </div>
     </section>
 
