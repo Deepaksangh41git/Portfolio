@@ -3150,6 +3150,603 @@ function update(now) {
 /* writing cards: links and scroll area shouldn't toggle the flip */
 document.querySelectorAll('.wr-flip a').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();});});
 </script>
+
+    <!-- ============================================================= -->
+    <!-- DEEP · PORTFOLIO ASSISTANT                                     -->
+    <!-- Self-contained. Delete this whole block to remove Deep.        -->
+    <!-- Expects the animated webp at: Chatbot/assistant.webp           -->
+    <!-- ============================================================= -->
+    <style>
+        #deep-root {
+            --deep-bg: #08080f;
+            --deep-bg2: #0e0e18;
+            --deep-surface: rgba(255, 255, 255, .04);
+            --deep-text: #f4f4fb;
+            --deep-dim: #b9b9d3;
+            --deep-border: rgba(255, 255, 255, .09);
+            --deep-accent: #FFD500;
+            --deep-accent-2: #FF5800;
+            --deep-accent-bg: rgba(255, 213, 0, .08);
+            --deep-ink: #1a1300;
+            --deep-avatar: 72px;          /* launcher size — tweak here */
+            --deep-lift: 24px;            /* raise the launcher if it clashes with anything */
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* ---------- Launcher ---------- */
+        #deep-launcher {
+            position: fixed;
+            right: 24px;
+            bottom: var(--deep-lift);
+            z-index: 900;                 /* under the project modal (10000) by design */
+            opacity: 0;
+            animation: deep-fade .5s ease .6s forwards,
+                       deep-nudge 9s ease-in-out 3.5s infinite;
+        }
+        @keyframes deep-fade { to { opacity: 1; } }
+        /* a short double-bob once every 9s — a glance, not a dance */
+        @keyframes deep-nudge {
+            0%, 86%, 100% { transform: translateY(0); }
+            90%           { transform: translateY(-7px); }
+            93%           { transform: translateY(0); }
+            96%           { transform: translateY(-3px); }
+        }
+
+        #deep-fab {
+            background: none;
+            border: 0;
+            padding: 0;
+            font-family: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+            transition: transform .25s cubic-bezier(.2,.8,.3,1);
+        }
+        #deep-fab img {
+            width: var(--deep-avatar);
+            height: auto;
+            display: block;
+            pointer-events: none;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,.6));
+        }
+        #deep-fab:hover { transform: scale(1.07) translateY(-2px); }
+        #deep-fab:active { transform: scale(.97); }
+        #deep-fab:focus-visible { outline: 2px solid var(--deep-accent); outline-offset: 6px; }
+
+        .deep-bubble {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            background: var(--deep-accent);
+            color: var(--deep-ink);
+            font: 700 .78rem 'JetBrains Mono', monospace;
+            letter-spacing: .4px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            white-space: nowrap;
+            box-shadow: 0 0 0 1px rgba(255,213,0,.5), 0 6px 20px rgba(255,213,0,.3);
+            transition: filter .25s ease, box-shadow .25s ease;
+        }
+        .deep-bubble::after {        /* thought-bubble tail */
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -4px;
+            width: 9px; height: 9px;
+            margin-left: -4.5px;
+            background: var(--deep-accent);
+            transform: rotate(45deg);
+        }
+        #deep-fab:hover .deep-bubble,
+        #deep-fab:focus-visible .deep-bubble {
+            filter: brightness(1.08);
+            box-shadow: 0 0 0 1px rgba(255,213,0,.8), 0 10px 28px rgba(255,213,0,.45);
+        }
+
+        /* ---------- Panel ---------- */
+        #deep-panel {
+            position: fixed;
+            right: 24px;
+            bottom: var(--deep-lift);
+            z-index: 9990;
+            width: 380px;
+            max-width: calc(100vw - 32px);
+            height: 560px;
+            max-height: calc(100vh - var(--deep-lift) - 24px);
+            display: none;
+            flex-direction: column;
+            background: var(--deep-bg2);
+            border: 1px solid var(--deep-border);
+            border-top: 3px solid var(--deep-accent);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 70px -20px rgba(0,0,0,.9), 0 20px 60px rgba(255,213,0,.08);
+        }
+        #deep-panel.deep-open { display: flex; animation: deep-panel-in .28s cubic-bezier(.2,.8,.3,1); }
+        @keyframes deep-panel-in {
+            from { opacity: 0; transform: translateY(16px) scale(.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .deep-head {
+            display: flex; align-items: center; gap: 11px;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--deep-border);
+            background: var(--deep-bg);
+            flex-shrink: 0;
+        }
+        .deep-head img { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; }
+        .deep-head-txt { flex-grow: 1; min-width: 0; }
+        .deep-head-txt b { display: block; font-size: 1rem; font-weight: 700; color: var(--deep-text); line-height: 1.2; }
+        .deep-head-txt span { display: block; font-size: .68rem; color: var(--deep-dim); margin-top: 3px; }
+        .deep-beta {
+            display: inline-block; font-style: normal;
+            font: 700 .58rem 'JetBrains Mono', monospace;
+            letter-spacing: 1px; text-transform: uppercase;
+            color: var(--deep-accent); background: var(--deep-accent-bg);
+            border: 1px solid rgba(255,213,0,.28);
+            padding: 2px 7px; border-radius: 999px;
+            margin-left: 8px; vertical-align: 2px;
+        }
+        .deep-x {
+            background: var(--deep-surface); border: 1px solid var(--deep-border);
+            color: var(--deep-dim); width: 30px; height: 30px; border-radius: 9px;
+            font-size: 1.2rem; line-height: 1; flex-shrink: 0; transition: all .2s ease;
+        }
+        .deep-x:hover { color: var(--deep-accent); border-color: rgba(255,213,0,.5); }
+        .deep-x:focus-visible { outline: 2px solid var(--deep-accent); outline-offset: 2px; }
+
+        .deep-log {
+            flex-grow: 1; overflow-y: auto; padding: 16px;
+            display: flex; flex-direction: column; gap: 14px;
+            scrollbar-width: thin; scrollbar-color: var(--deep-accent) transparent;
+        }
+        .deep-log::-webkit-scrollbar { width: 5px; }
+        .deep-log::-webkit-scrollbar-thumb { background: var(--deep-accent); border-radius: 3px; }
+        .deep-log::-webkit-scrollbar-track { background: transparent; }
+
+        .deep-msg { max-width: 86%; font-size: .87rem; line-height: 1.65; }
+        .deep-msg.me {
+            align-self: flex-end;
+            background: var(--deep-accent-bg);
+            border: 1px solid rgba(255,213,0,.3);
+            color: var(--deep-text);
+            padding: 9px 13px; border-radius: 14px 14px 4px 14px;
+        }
+        .deep-msg.deep {
+            align-self: flex-start;
+            background: var(--deep-surface);
+            border: 1px solid var(--deep-border);
+            color: #d2d2e6;
+            padding: 11px 13px; border-radius: 14px 14px 14px 4px;
+        }
+        .deep-msg.deep p { margin: 0 0 9px; }
+        .deep-msg.deep p:last-of-type { margin-bottom: 0; }
+
+        .deep-cursor {
+            display: inline-block; width: 2px; height: 1em;
+            background: var(--deep-accent); vertical-align: text-bottom;
+            margin-left: 2px; animation: deep-blink 1s infinite;
+        }
+        @keyframes deep-blink { 0%,50% { opacity:1 } 50.1%,100% { opacity:0 } }
+
+        .deep-src { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+        .deep-src a {
+            display: inline-flex; align-items: center;
+            font: 700 .64rem 'JetBrains Mono', monospace;
+            letter-spacing: .3px; text-decoration: none;
+            color: var(--deep-accent);
+            background: var(--deep-accent-bg);
+            border: 1px solid rgba(255,213,0,.25);
+            padding: 4px 10px; border-radius: 999px;
+            transition: all .2s ease;
+        }
+        .deep-src a:hover { background: var(--deep-accent); color: var(--deep-ink); }
+
+        .deep-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: -2px; }
+        .deep-chips button {
+            font-family: inherit; font-size: .76rem; font-weight: 600;
+            color: var(--deep-dim);
+            background: var(--deep-surface);
+            border: 1px solid var(--deep-border);
+            padding: 6px 12px; border-radius: 999px;
+            transition: all .2s ease;
+        }
+        .deep-chips button:hover { color: var(--deep-text); border-color: var(--deep-accent); transform: translateY(-2px); }
+        .deep-chips button:focus-visible { outline: 2px solid var(--deep-accent); outline-offset: 2px; }
+
+        .deep-form {
+            display: flex; gap: 8px; padding: 12px 16px;
+            border-top: 1px solid var(--deep-border);
+            background: var(--deep-bg); flex-shrink: 0;
+        }
+        .deep-form input {
+            flex-grow: 1; min-width: 0;
+            font: .87rem 'Space Grotesk', sans-serif;
+            color: var(--deep-text);
+            background: var(--deep-surface);
+            border: 1px solid var(--deep-border);
+            padding: 11px 14px; border-radius: 10px;
+            outline: none; transition: border-color .3s, box-shadow .3s;
+        }
+        .deep-form input::placeholder { color: var(--deep-dim); }
+        .deep-form input:focus { border-color: var(--deep-accent); box-shadow: 0 0 0 3px rgba(255,213,0,.1); }
+        .deep-form button {
+            background: linear-gradient(135deg, var(--deep-accent-2), #C41E3A);
+            color: #fff; border: 0;
+            width: 42px; border-radius: 10px; font-size: 1rem;
+            transition: transform .2s, box-shadow .2s;
+            box-shadow: 0 0 20px rgba(255,88,0,.3);
+        }
+        .deep-form button:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(255,88,0,.5); }
+        .deep-form button:disabled { opacity: .4; transform: none; box-shadow: none; }
+        .deep-form button:focus-visible { outline: 2px solid var(--deep-accent); outline-offset: 2px; }
+
+        .deep-foot {
+            padding: 0 16px 11px;
+            font: 600 .58rem 'JetBrains Mono', monospace;
+            color: var(--deep-dim); letter-spacing: .2px;
+            text-align: center; background: var(--deep-bg); flex-shrink: 0;
+        }
+
+        /* ---------- Mobile ---------- */
+        @media (max-width: 560px) {
+            #deep-root { --deep-avatar: 60px; }
+            #deep-launcher { right: 16px; }
+            .deep-bubble { font-size: .7rem; padding: 7px 13px; }
+            #deep-panel {
+                right: 0; bottom: 0; width: 100%; max-width: 100%;
+                height: 100%; max-height: 100%; border-radius: 0; border: 0;
+                border-top: 3px solid var(--deep-accent);
+            }
+        }
+
+        /* ---------- Reduced motion ---------- */
+        @media (prefers-reduced-motion: reduce) {
+            #deep-launcher { animation: deep-fade .01s forwards; opacity: 1; transform: none; }
+            #deep-panel.deep-open { animation: none; }
+            #deep-fab { transition: none; }
+            .deep-cursor { animation: none; }
+        }
+    </style>
+
+    <div id="deep-root">
+        <!-- Launcher -->
+        <div id="deep-launcher">
+            <button id="deep-fab" aria-label="Ask Deep — an AI assistant about Deepak's work" aria-expanded="false" aria-controls="deep-panel">
+                <span class="deep-bubble">Ask Deep</span>
+                <img src="Chatbot/assistant.webp" alt="" />
+            </button>
+        </div>
+
+        <!-- Panel -->
+        <div id="deep-panel" role="dialog" aria-labelledby="deep-title">
+            <div class="deep-head">
+                <img src="Chatbot/assistant.webp" alt="" />
+                <div class="deep-head-txt">
+                    <b id="deep-title">Deep<em class="deep-beta">In development</em></b>
+                    <span>AI assistant · answers from Deepak's work</span>
+                </div>
+                <button class="deep-x" id="deep-close" aria-label="Close Deep">&times;</button>
+            </div>
+
+            <div class="deep-log" id="deep-log" aria-live="polite"></div>
+
+            <form class="deep-form" id="deep-form">
+                <input id="deep-input" type="text" maxlength="200" autocomplete="off"
+                       placeholder="Ask about his projects, skills…" aria-label="Ask Deep a question" />
+                <button type="submit" id="deep-send" aria-label="Send">&uarr;</button>
+            </form>
+
+            <div class="deep-foot">Deep is an AI assistant, not Deepak. Answers come from his portfolio and repos.</div>
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        "use strict";
+
+        /* =====================================================================
+           PLACEHOLDER BRAIN  —  replace with a real backend call.
+           Swap `deepAnswer()` below for:
+               const r = await fetch('/api/ask', {...});
+               return await r.json();   // { answer, sources: [{t, u}] }
+           Everything else stays as it is.
+           ===================================================================== */
+        var DEEP_FACTS = [
+            { k: ["cycrew","internship","intern","siem","soc","security","incident","playbook"],
+              a: "He was an AI Engineer Intern at CyCrew from Oct 2025 to Jan 2026, building an AI-assisted SIEM incident response prototype. A raw alert or log dump goes in, a structured incident report with response steps comes out.\n\nHe built the RAG service (FAISS with BGE-small-en over 11 attack playbooks), two n8n workflows using Gemini 2.5 Flash-Lite with structured JSON output, a FastAPI result store and the Vue.js dashboard. He's upfront that it's a working prototype, not yet benchmarked.",
+              s: [{t:"Experience", u:"#experience"}, {t:"Case study", u:"Documents/CyCrew_Case_Study.pdf"}] },
+
+            { k: ["rag","retrieval","embedding","faiss","grounded","vector"],
+              a: "Yes, repeatedly. His Virtual Teaching Assistant is a full RAG pipeline over scraped course and forum content, returning cited answers in under 30 seconds. His CyCrew internship built a RAG service with FAISS and BGE-small-en over 11 attack playbooks.\n\nHe's also written about where RAG breaks \u2014 his article on why RAG systems fail even when retrieval looks healthy is in the Writing section.",
+              s: [{t:"Projects", u:"#projects"}, {t:"Writing", u:"#writing"}] },
+
+            { k: ["hardest","toughest","most complex","most technical","most difficult","impressive"],
+              a: "The CyCrew SOC assistant is the most involved \u2014 a RAG service, two n8n orchestration workflows, a FastAPI store and a Vue dashboard, with two distinct input paths depending on whether an alert is classified.\n\nThe interesting part is the design decision: classified alerts are grounded in a retrieved playbook with the prompt forbidding invented steps, while unclassified logs go to the model with a prompt that must cite evidence and is allowed to conclude no attack occurred.",
+              s: [{t:"Experience", u:"#experience"}] },
+
+            { k: ["weakest","weakness","still learning","learning now","upskilling","his gaps","honest"],
+              a: "He's candid about it on the site. The CyCrew prototype has no similarity threshold on retrieval, so an unknown alert type can still be matched to the nearest playbook \u2014 he lists that as a known gap along with needing a labelled test set and persistent storage.\n\nThat willingness to document what isn't finished is worth more than a polished claim.",
+              s: [{t:"Experience", u:"#experience"}] },
+
+            { k: ["skill","python","fastapi","flask","docker","mlflow","jenkins","tech stack","toolkit","xgboost","tensorflow"],
+              a: "LLMs and GenAI: RAG, FAISS, embedding models, prompt engineering, agentic workflows. ML and data science: scikit-learn, TensorFlow, XGBoost, pandas, NumPy, feature engineering. Backend: Python, Java, SQL, FastAPI, Flask, REST APIs, n8n. MLOps: Git, Docker, Jenkins CI/CD, MLflow and Google Cloud.",
+              s: [{t:"Skills", u:"#skills"}] },
+
+            { k: ["education","college","degree","dronacharya","iit","madras","university","studying","study","btech","b.tech"],
+              a: "Two degrees in parallel. A B.Tech in Computer Science from Dronacharya College of Engineering, Gurgaon (2022\u20132026), and a BS in Data Science and Applications from IIT Madras (2022\u20132026), the online programme focused on statistics, programming and machine learning.",
+              s: [{t:"Education", u:"#education"}] },
+
+            { k: ["contact","email","reach him","hiring","hire","recruit","opportunity","get in touch"],
+              a: "Email is deepaksangh45@gmail.com. There are GitHub and LinkedIn links in the Contact section too.",
+              s: [{t:"Email", u:"mailto:deepaksangh45@gmail.com"}, {t:"Contact", u:"#contact"}] },
+
+            { k: ["hotel","reservation","cancellation","mlops pipeline","gcs","smote"],
+              a: "An end-to-end ML and MLOps pipeline predicting hotel booking cancellations, built Jun\u2013Aug 2025.\n\nData ingested from Google Cloud Storage with encoding, feature selection and SMOTE for class imbalance. Hyperparameter tuning tracked in MLflow, a Flask REST API for inference, containerised with Docker, and Jenkins CI/CD automating tests, image builds, registry pushes and deployment to GCP. Structured logging and custom exception handling throughout.",
+              s: [{t:"Projects", u:"#projects"}, {t:"GitHub", u:"https://github.com/Deepaksangh41git/Hotel_Reservation_Prediction"}] },
+
+            { k: ["data analyst","analyst agent","virtual data","self-correcting","code loop"],
+              a: "An API that uses LLMs to source, prepare, analyse and visualise data automatically.\n\nYou POST a questions file plus optional CSVs, images or PDFs. The agent reads the question, plans a workflow and generates code, which is executed and validated. If the result is wrong it loops back to the model, refines the code and retries until the output matches \u2014 all within a three-minute budget.",
+              s: [{t:"Projects", u:"#projects"}, {t:"GitHub", u:"https://github.com/Deepaksangh41git/Virtual_Data_Analyst_V2"}] },
+
+            { k: ["legal","lora","peft","deberta","classification","30 classes","fine-tun","fine tun"],
+              a: "A Kaggle competition classifying legal documents across 30 classes, Jan\u2013Feb 2026.\n\nHe fine-tuned a DeBERTa-based transformer using LoRA, training roughly 0.8% of the parameters. The work included EDA on text length and class distribution, analysis of how 512-token truncation affected different classes, stratified train-validation splitting, and sanity checks covering GPU validation, manual forward passes and prediction-order diagnostics.",
+              s: [{t:"Projects", u:"#projects"}, {t:"GitHub", u:"https://github.com/Deepaksangh41git/Legal-Document-Classification-Kaggle"}] },
+
+            { k: ["teaching assistant","virtual teaching","student quer","course content","forum"],
+              a: "A RAG-powered API that answers student questions from course and forum content.\n\nIt scrapes and processes the material, converts it to embeddings, retrieves the most relevant chunks and passes them to an LLM for a grounded answer. The API takes questions with optional file attachments and returns JSON with the answer plus reference links, inside 30 seconds.",
+              s: [{t:"Projects", u:"#projects"}, {t:"GitHub", u:"https://github.com/Deepaksangh41git/Virtual-Teaching-Assistant"}] },
+
+            { k: ["engage2value","purchase value","kaggle","leaderboard","rank","r2","regression","xgboost"],
+              a: "A Kaggle competition predicting customer purchase value from multi-session digital behaviour \u2014 browser, device, traffic source and geography.\n\nHe built preprocessing pipelines for missing values, categorical encoding and scaling, compared Linear Regression, RandomForest and XGBoost, then tuned and ensembled. Final R\u00b2 of 0.6813, ranked 152 of 1500 teams \u2014 top 10%.",
+              s: [{t:"Projects", u:"#projects"}, {t:"GitHub", u:"https://github.com/Deepaksangh41git/ENGAGE2VALUE"}] },
+
+            { k: ["household","service provider","plumber","booking platform","full-stack","full stack","celery"],
+              a: "A full-stack platform connecting households with service providers \u2014 plumbers, electricians, cleaners \u2014 covering booking, scheduling and management.\n\nFlask REST API with SQLite on the backend, Vue.js with Bootstrap on the front, and Redis plus Celery handling notifications and batch jobs. Includes authentication, service browsing, status tracking and an admin dashboard.",
+              s: [{t:"Projects", u:"#projects"}, {t:"GitHub", u:"https://github.com/Deepaksangh41git/Household_Services_Management"}] },
+
+            { k: ["writing","written","wrote","article","blog","data leakage","leakage","published"],
+              a: "Two pieces in the Writing section. One on why RAG systems fail even when retrieval works \u2014 covering context getting buried or diluted, models ignoring context in favour of prior knowledge, and evaluation that only measures retrieval so generation failures go unnoticed.\n\nThe other is on detecting data leakage in ML: preprocessing fitted before the split, target leakage, duplicate rows across train and test, and temporal leakage from random splits on time-dependent data.",
+              s: [{t:"Writing", u:"#writing"}] },
+
+            { k: ["resume","cv","curriculum"],
+              a: "There's a PDF resume linked in the nav bar \u2014 the Resume button at the top right.",
+              s: [{t:"Resume", u:"Documents/Deepak Singh_Resume.pdf"}] },
+
+            { k: ["certificate","certification","certified","aws","coursera","udemy","azure","deeplearning"],
+              a: "AWS Certified Cloud Practitioner, Amazon ML Summer School, Advanced Learning Algorithms from DeepLearning.AI and Stanford, Microsoft Applied Skills in NLP with Azure AI Language, plus SQL and FastAPI from Udemy.",
+              s: [{t:"Certifications", u:"#certifications"}] },
+
+            { k: ["rubik","cube","solve","23.5","outside work","outside class","off campus","hobbies","hobby","free time","fun","personally"],
+              a: "He solves Rubik's cubes \u2014 best time 23.5 seconds, and there's a working 3D cube on his homepage you can scramble and solve.\n\nHe built that cube himself: a full 27-cubie system with drag-to-rotate physics, momentum and a solver that replays the scramble in reverse. Worth a look as a piece of front-end work in its own right.",
+              s: [{t:"Try the cube", u:"#hero"}] },
+
+            { k: ["who is he","about him","his background","why ai","tell me about him"],
+              a: "He's a B.Tech CSE 2026 graduate and AI Engineer who builds LLM-powered applications, RAG pipelines and production machine learning systems.\n\nHe designs end to end: scalable backend APIs, MLOps workflows with Docker, MLflow and CI/CD, and cloud deployments in Python, FastAPI and Flask. His foundation spans machine learning, deep learning and software engineering, with shipped products and Kaggle results behind it.",
+              s: [{t:"About", u:"#about"}] },
+
+            { k: ["located","location","based in","which city","gurgaon","india"],
+              a: "He's based in India \u2014 his B.Tech is at Dronacharya College of Engineering in Gurgaon, alongside the IIT Madras online BS programme.",
+              s: [{t:"Education", u:"#education"}] }
+        ];
+
+        var DEEP_EMAIL = "deepaksangh45@gmail.com";
+
+        var DEEP_FALLBACK = "I'm still in development, so I only cover a few topics for now and that isn't one of them yet. Deepak will answer it properly \u2014 email him directly.";
+
+        var DEEP_GREETING = "Hi \u2014 I'm Deep, Deepak's assistant. I'm still being built, so I know a handful of topics for now. Ask away, or pick one below.";
+
+        var DEEP_CHIPS = [
+            "What did he do at CyCrew?",
+            "Has he built RAG before?",
+            "What's his most technical project?",
+            "What is he still learning?",
+            "What are his Kaggle results?",
+            "What's his tech stack?",
+            "What has he written about?",
+            "Where did he study?",
+            "What does he do outside work?",
+            "Where's his resume?",
+            "What certifications does he have?",
+            "How do I contact him?"
+        ];
+        var DEEP_CHIPS_SHOWN = 3;   /* how many to offer at a time */
+
+        /* Normalise to " word word " so every match can be anchored to word edges. */
+        function deepNorm(s) {
+            return (" " + String(s).toLowerCase().replace(/[^a-z0-9+. ]+/g, " ") + " ").replace(/\s+/g, " ");
+        }
+
+        function deepAnswer(q) {
+            var norm   = deepNorm(q);
+            var tokens = norm.trim().split(" ");
+            var best = null, bestScore = 0, bestSpec = 0;
+
+            for (var i = 0; i < DEEP_FACTS.length; i++) {
+                var keys = DEEP_FACTS[i].k, score = 0, spec = 0;
+
+                for (var j = 0; j < keys.length; j++) {
+                    var key = keys[j], hit = false;
+
+                    if (key.indexOf(" ") !== -1) {
+                        hit = norm.indexOf(" " + key + " ") !== -1;   /* whole phrase */
+                    } else if (key.length < 4) {
+                        hit = tokens.indexOf(key) !== -1;             /* acronyms: exact word only */
+                    } else {
+                        for (var t = 0; t < tokens.length; t++) {     /* longer words may be prefixes */
+                            if (tokens[t].indexOf(key) === 0) { hit = true; break; }
+                        }
+                    }
+                    if (hit) { score++; if (key.length > spec) spec = key.length; }
+                }
+
+                /* more matches wins; on a tie the more specific keyword wins */
+                if (score > bestScore || (score === bestScore && score > 0 && spec > bestSpec)) {
+                    bestScore = score; bestSpec = spec; best = DEEP_FACTS[i];
+                }
+            }
+
+            if (best && bestScore > 0) return { answer: best.a, sources: best.s };
+
+            return {
+                answer: DEEP_FALLBACK,
+                sources: [{ t: DEEP_EMAIL, u: "mailto:" + DEEP_EMAIL }]
+            };
+        }
+        /* ===================== end placeholder brain ===================== */
+
+        var launcher = document.getElementById("deep-launcher");
+        var fab      = document.getElementById("deep-fab");
+        var panel    = document.getElementById("deep-panel");
+        var closeBtn = document.getElementById("deep-close");
+        var log      = document.getElementById("deep-log");
+        var form     = document.getElementById("deep-form");
+        var input    = document.getElementById("deep-input");
+        var send     = document.getElementById("deep-send");
+        var chipWrap = document.createElement("div");
+        chipWrap.className = "deep-chips";
+        chipWrap.id = "deep-chips";
+
+        var busy = false, greeted = false;
+        var asked = [];                       /* suggestions already used */
+
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        function scroll() { log.scrollTop = log.scrollHeight; }
+
+        function addUser(text) {
+            var el = document.createElement("div");
+            el.className = "deep-msg me";
+            el.textContent = text;
+            log.appendChild(el);
+            scroll();
+        }
+
+        function buildChips() {
+            var left = DEEP_CHIPS.filter(function (c) { return asked.indexOf(c) === -1; });
+            if (!left.length) { chipWrap.style.display = "none"; return; }
+
+            chipWrap.innerHTML = "";
+            left.slice(0, DEEP_CHIPS_SHOWN).forEach(function (c) {
+                var b = document.createElement("button");
+                b.type = "button";
+                b.textContent = c;
+                b.addEventListener("click", function () { ask(c); });
+                chipWrap.appendChild(b);
+            });
+            log.appendChild(chipWrap);          /* always sits below the latest reply */
+            chipWrap.style.display = "flex";
+        }
+
+        function addDeep(text, sources, instant) {
+            var el = document.createElement("div");
+            el.className = "deep-msg deep";
+            log.appendChild(el);
+
+            function finish() {
+                if (sources && sources.length) {
+                    var box = document.createElement("div");
+                    box.className = "deep-src";
+                    sources.forEach(function (s) {
+                        var a = document.createElement("a");
+                        a.href = s.u;
+                        a.textContent = s.t;
+                        if (s.u.charAt(0) !== "#") { a.target = "_blank"; a.rel = "noopener"; }
+                        else { a.addEventListener("click", function () { closePanel(); }); }
+                        box.appendChild(a);
+                    });
+                    el.appendChild(box);
+                }
+                busy = false;
+                send.disabled = false;
+                buildChips();
+                scroll();
+            }
+
+            if (instant || reduce) {
+                text.split("\n\n").forEach(function (t) {
+                    var pp = document.createElement("p");
+                    pp.textContent = t;
+                    el.appendChild(pp);
+                });
+                finish();
+                return;
+            }
+
+            var paras = text.split("\n\n");
+            var cur = document.createElement("span");
+            cur.className = "deep-cursor";
+
+            var pi = 0, i = 0, span = null;
+            (function tick() {
+                if (span === null) {
+                    span = document.createElement("p");
+                    el.appendChild(span);
+                    el.appendChild(cur);
+                }
+                if (i < paras[pi].length) {
+                    span.textContent += paras[pi].charAt(i++);
+                    scroll();
+                    setTimeout(tick, 11);
+                } else if (++pi < paras.length) {
+                    i = 0; span = null;
+                    setTimeout(tick, 90);
+                } else {
+                    cur.remove();
+                    finish();
+                }
+            })();
+        }
+
+        function ask(q) {
+            if (busy || !q.trim()) return;
+            busy = true;
+            send.disabled = true;
+            chipWrap.style.display = "none";
+            if (asked.indexOf(q) === -1) asked.push(q);
+            addUser(q.trim());
+            var res = deepAnswer(q.trim());
+            setTimeout(function () { addDeep(res.answer, res.sources, false); }, 320);
+        }
+
+        function openPanel() {
+            panel.classList.add("deep-open");
+            launcher.style.display = "none";
+            fab.setAttribute("aria-expanded", "true");
+            if (!greeted) {
+                greeted = true;
+                busy = true; send.disabled = true;
+                addDeep(DEEP_GREETING, null, false);
+            }
+            setTimeout(function () { input.focus(); }, 60);
+        }
+
+        function closePanel() {
+            panel.classList.remove("deep-open");
+            launcher.style.display = "block";
+            fab.setAttribute("aria-expanded", "false");
+            fab.focus();
+        }
+
+        fab.addEventListener("click", openPanel);
+        closeBtn.addEventListener("click", closePanel);
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            var v = input.value;
+            input.value = "";
+            ask(v);
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && panel.classList.contains("deep-open")) closePanel();
+        });
+    })();
+    </script>
+    <!-- =================== END DEEP · PORTFOLIO ASSISTANT =================== -->
+
 </body>
 
 </html>
