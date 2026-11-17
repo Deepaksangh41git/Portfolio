@@ -3176,7 +3176,7 @@ document.querySelectorAll('.wr-flip a').forEach(function(el){el.addEventListener
         /* ---------- Launcher ---------- */
         #deep-launcher {
             position: fixed;
-            left: 24px;
+            right: 24px;
             bottom: var(--deep-lift);
             z-index: 900;                 /* under the project modal (10000) by design */
             opacity: 0;
@@ -3247,7 +3247,7 @@ document.querySelectorAll('.wr-flip a').forEach(function(el){el.addEventListener
         /* ---------- Panel ---------- */
         #deep-panel {
             position: fixed;
-            left: 24px;
+            right: 24px;
             bottom: var(--deep-lift);
             z-index: 9990;
             width: 380px;
@@ -3393,10 +3393,10 @@ document.querySelectorAll('.wr-flip a').forEach(function(el){el.addEventListener
         /* ---------- Mobile ---------- */
         @media (max-width: 560px) {
             #deep-root { --deep-avatar: 60px; }
-            #deep-launcher { left: 16px; }
+            #deep-launcher { right: 16px; }
             .deep-bubble { font-size: .7rem; padding: 7px 13px; }
             #deep-panel {
-                left: 0; bottom: 0; width: 100%; max-width: 100%;
+                right: 0; bottom: 0; width: 100%; max-width: 100%;
                 height: 100%; max-height: 100%; border-radius: 0; border: 0;
                 border-top: 3px solid var(--deep-accent);
             }
