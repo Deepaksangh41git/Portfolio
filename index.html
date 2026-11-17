@@ -3170,6 +3170,12 @@ document.querySelectorAll('.wr-flip a').forEach(function(el){el.addEventListener
             --deep-ink: #1a1300;
             --deep-avatar: 72px;          /* launcher size — tweak here */
             --deep-lift: 76px;            /* clears the "Powered by Netlify" badge */
+            --deep-head-h: 84px;          /* height of the dark header strip */
+            --deep-crest: 10px;           /* hair showing above the box */
+            /* measured from the webp: he spans 2.5%-98.5% of the frame,
+               so this height lands his seat on the strip's lower edge
+               and his hair exactly --deep-crest above the panel */
+            --deep-figure: calc((var(--deep-head-h) + var(--deep-crest) + 3px) / 0.9602);
             font-family: 'Space Grotesk', sans-serif;
         }
 
@@ -3260,7 +3266,7 @@ document.querySelectorAll('.wr-flip a').forEach(function(el){el.addEventListener
             border: 1px solid var(--deep-border);
             border-top: 3px solid var(--deep-accent);
             border-radius: 20px;
-            overflow: hidden;
+            overflow: visible;   /* lets his hair crest the rim */
             box-shadow: 0 30px 70px -20px rgba(0,0,0,.9), 0 20px 60px rgba(255,213,0,.08);
         }
         #deep-panel.deep-open { display: flex; animation: deep-panel-in .28s cubic-bezier(.2,.8,.3,1); }
@@ -3271,12 +3277,33 @@ document.querySelectorAll('.wr-flip a').forEach(function(el){el.addEventListener
 
         .deep-head {
             display: flex; align-items: center; gap: 11px;
-            padding: 14px 16px;
+            height: var(--deep-head-h);
+            padding: 0 16px;
+            padding-left: calc(var(--deep-figure) + 20px);   /* clear the figure */
             border-bottom: 1px solid var(--deep-border);
             background: var(--deep-bg);
+            border-radius: 17px 17px 0 0;
             flex-shrink: 0;
         }
-        .deep-head img { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; }
+        /* Deep sits on the strip: seat on its lower edge, hair over the rim */
+        .deep-avatar {
+            position: absolute;
+            left: 10px;
+            width: var(--deep-figure);
+            height: auto;
+            /* +3px compensates the panel's 3px accent top border, since an
+               absolute child is placed against the padding box, not the edge */
+            top: calc(-1 * (var(--deep-crest) + 3px) - var(--deep-figure) * 0.0248);
+            z-index: 3;
+            pointer-events: none;
+            transform-origin: 50% 96%;       /* rocks from where he sits */
+            animation: deep-sit 5.5s ease-in-out infinite;
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,.65));
+        }
+        @keyframes deep-sit {
+            0%, 100% { transform: rotate(-1.6deg); }
+            50%      { transform: rotate(1.6deg); }
+        }
         .deep-head-txt { flex-grow: 1; min-width: 0; }
         .deep-head-txt b { display: block; font-size: 1rem; font-weight: 700; color: var(--deep-text); line-height: 1.2; }
         .deep-head-txt span { display: block; font-size: .68rem; color: var(--deep-dim); margin-top: 3px; }
@@ -3388,11 +3415,12 @@ document.querySelectorAll('.wr-flip a').forEach(function(el){el.addEventListener
             font: 600 .58rem 'JetBrains Mono', monospace;
             color: var(--deep-dim); letter-spacing: .2px;
             text-align: center; background: var(--deep-bg); flex-shrink: 0;
+            border-radius: 0 0 19px 19px;
         }
 
         /* ---------- Mobile ---------- */
         @media (max-width: 560px) {
-            #deep-root { --deep-avatar: 60px; }
+            #deep-root { --deep-avatar: 60px; --deep-head-h: 66px; --deep-crest: 0px; }
             #deep-launcher { right: 16px; }
             .deep-bubble { font-size: .7rem; padding: 7px 13px; }
             #deep-panel {
@@ -3422,11 +3450,11 @@ document.querySelectorAll('.wr-flip a').forEach(function(el){el.addEventListener
 
         <!-- Panel -->
         <div id="deep-panel" role="dialog" aria-labelledby="deep-title">
+            <img class="deep-avatar" src="Chatbot/assistant.webp" alt="" />
             <div class="deep-head">
-                <img src="Chatbot/assistant.webp" alt="" />
                 <div class="deep-head-txt">
                     <b id="deep-title">Deep<em class="deep-beta">In development</em></b>
-                    <span>AI assistant · answers from Deepak's work</span>
+                    <span>answers from Deepak's work</span>
                 </div>
                 <button class="deep-x" id="deep-close" aria-label="Close Deep">&times;</button>
             </div>
